@@ -1,0 +1,6 @@
+{
+  "conventionalCommits.scopes": [
+    "nestjs"
+  ],
+  "prisma.fileWatcher": true
+}
