@@ -1,6 +1,6 @@
-import { WalletAsset } from "@/app/models";
+import { Order } from "@/app/models";
 
-async function getOrders(wallet_id: string): Promise<WalletAsset[]> {
+async function getOrders(wallet_id: string): Promise<Order[]> {
   const response = await fetch(
     `http://localhost:8000/wallets/${wallet_id}/orders`
   );
@@ -13,8 +13,7 @@ export default async function MyOrders(props: { wallet_id: string }) {
       <ul>
         {orders.map((order) => (
           <li key={order.id}>
-            {order.Asset.id} - {order.shares} - R${" "} 
-            {order.Asset.price}
+            {order.Asset.id} - {order.shares} - R${order.price} - {order.status}
           </li>
         ))}
       </ul>
