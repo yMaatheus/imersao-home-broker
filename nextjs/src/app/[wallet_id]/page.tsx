@@ -1,4 +1,4 @@
-import MyWallet from "@/components/MyWallet";
+import { MyWallet } from "@/components/MyWallet";
 
 export default async function HomePage({
   params,

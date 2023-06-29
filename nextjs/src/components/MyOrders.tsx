@@ -7,7 +7,7 @@ async function getOrders(wallet_id: string): Promise<Order[]> {
   return response.json();
 }
  
-export default async function MyOrders(props: { wallet_id: string }) {
+export async function MyOrders(props: { wallet_id: string }) {
   const orders = await getOrders(props.wallet_id);
   return (
       <ul>

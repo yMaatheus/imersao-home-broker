@@ -1,3 +1,5 @@
+import { MyOrders } from "@/components/MyOrders";
+
 export default async function HomeBrokerPage({
   params,
 }: {
@@ -9,7 +11,9 @@ export default async function HomeBrokerPage({
       <div className="flex flex-row">
         <div className="flex flex-col">
           <div>area do formulário</div>
-          <div>listagem de orders</div>
+          <div>
+            <MyOrders wallet_id={params.wallet_id} />
+          </div>
         </div>
         <div>gráfico</div>
       </div>

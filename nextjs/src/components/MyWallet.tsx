@@ -7,7 +7,7 @@ async function getWalletAssets(wallet_id: string): Promise<WalletAsset[]> {
   return response.json();
 }
  
-export default async function MyWallet(props: { wallet_id: string }) {
+export async function MyWallet(props: { wallet_id: string }) {
   const walletAssets = await getWalletAssets(props.wallet_id);
   return (
       <ul>
