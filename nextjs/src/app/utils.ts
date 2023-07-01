@@ -1,5 +1,5 @@
 export function isHomeBrokerClosed() {
-  const currentDate = new Date();
+  const currentDate = new Date()
   const closeDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
@@ -7,9 +7,9 @@ export function isHomeBrokerClosed() {
     18,
     0,
     0
-  );
+  )
 
-  return currentDate > closeDate;
+  return currentDate > closeDate
 }
 
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export const fetcher = (url: string) => fetch(url).then((res) => res.json())

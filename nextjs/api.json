@@ -75,6 +75,7 @@
       }
     },
     {
+      "id": 4,
       "shares": "4",
       "price": "5",
       "asset_id": "asset1",
@@ -84,8 +85,59 @@
         "id": "asset1",
         "symbol": "PETR4",
         "price": 30
-      },
-      "id": 4
+      }
+    },
+    {
+      "id": 5,
+      "shares": "4",
+      "price": "5",
+      "asset_id": "asset1",
+      "type": "BUY",
+      "status": "OPEN",
+      "Asset": {
+        "id": "asset1",
+        "symbol": "PETR4",
+        "price": 30
+      }
+    },
+    {
+      "id": 6,
+      "shares": "4",
+      "price": "5",
+      "asset_id": "asset1",
+      "type": "BUY",
+      "status": "OPEN",
+      "Asset": {
+        "id": "asset1",
+        "symbol": "PETR4",
+        "price": 30
+      }
+    },
+    {
+      "id": 7,
+      "shares": "4",
+      "price": "5",
+      "asset_id": "asset1",
+      "type": "BUY",
+      "status": "OPEN",
+      "Asset": {
+        "id": "asset1",
+        "symbol": "PETR4",
+        "price": 30
+      }
+    },
+    {
+      "id": 8,
+      "shares": "4",
+      "price": "5",
+      "asset_id": "asset1",
+      "type": "BUY",
+      "status": "OPEN",
+      "Asset": {
+        "id": "asset1",
+        "symbol": "PETR4",
+        "price": 30
+      }
     },
     {
       "shares": "4",
@@ -98,11 +150,11 @@
         "symbol": "PETR4",
         "price": 30
       },
-      "id": 5
+      "id": 9
     },
     {
-      "shares": "4",
-      "price": "5",
+      "shares": "45",
+      "price": "56",
       "asset_id": "asset1",
       "type": "BUY",
       "status": "OPEN",
@@ -111,33 +163,7 @@
         "symbol": "PETR4",
         "price": 30
       },
-      "id": 6
-    },
-    {
-      "shares": "4",
-      "price": "5",
-      "asset_id": "asset1",
-      "type": "BUY",
-      "status": "OPEN",
-      "Asset": {
-        "id": "asset1",
-        "symbol": "PETR4",
-        "price": 30
-      },
-      "id": 7
-    },
-    {
-      "shares": "4",
-      "price": "5",
-      "asset_id": "asset1",
-      "type": "BUY",
-      "status": "OPEN",
-      "Asset": {
-        "id": "asset1",
-        "symbol": "PETR4",
-        "price": 30
-      },
-      "id": 8
+      "id": 10
     }
   ]
 }

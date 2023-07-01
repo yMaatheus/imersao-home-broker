@@ -1,6 +1,6 @@
 'use client'
 
-import { Table } from "flowbite-react"
+import { Table } from 'flowbite-react'
 
 export * from 'flowbite-react'
 

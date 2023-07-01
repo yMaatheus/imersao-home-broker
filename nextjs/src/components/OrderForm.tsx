@@ -1,35 +1,35 @@
-import { revalidateTag } from "next/cache";
+import { revalidateTag } from 'next/cache'
 
 async function initTransaction(formData: FormData) {
-  "use server";
-  const shares = formData.get("shares");
-  const price = formData.get("price");
-  const asset_id = formData.get("asset_id");
-  const wallet_id = formData.get("wallet_id");
-  const type = formData.get("type");
+  'use server'
+  const shares = formData.get('shares')
+  const price = formData.get('price')
+  const asset_id = formData.get('asset_id')
+  const wallet_id = formData.get('wallet_id')
+  const type = formData.get('type')
 
   const response = await fetch(
     `http://localhost:8000/wallets/${wallet_id}/orders`, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         shares,
         price,
         asset_id,
         type,
-        status: "OPEN",
+        status: 'OPEN',
         Asset: {
           id: asset_id,
-          symbol: "PETR4",
+          symbol: 'PETR4',
           price: 30,
         },
       }),
     }
-  );
-  revalidateTag(`orders-wallet-${wallet_id}`);
-  return await response.json();
+  )
+  revalidateTag(`orders-wallet-${wallet_id}`)
+  return await response.json()
 }
 
 export function OrderForm(props: { asset_id: string; wallet_id: string }) {
@@ -59,5 +59,5 @@ export function OrderForm(props: { asset_id: string; wallet_id: string }) {
         <button>Comprar</button>
       </form>
     </div>
-  );
+  )
 }

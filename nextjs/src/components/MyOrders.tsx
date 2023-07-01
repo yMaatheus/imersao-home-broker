@@ -1,4 +1,4 @@
-import { Order } from "@/app/models";
+import { Order } from '@/app/models'
 
 async function getOrders(wallet_id: string): Promise<Order[]> {
   const response = await fetch(
@@ -10,12 +10,12 @@ async function getOrders(wallet_id: string): Promise<Order[]> {
         revalidate: 1,
       },
     }
-  );
-  return await response.json();
+  )
+  return await response.json()
 }
 
 export async function MyOrders(props: { wallet_id: string }) {
-  const orders = await getOrders(props.wallet_id);
+  const orders = await getOrders(props.wallet_id)
   return (
     <ul>
       {orders?.map((order) => (
@@ -24,5 +24,5 @@ export async function MyOrders(props: { wallet_id: string }) {
         </li>
       ))}
     </ul>
-  );
+  )
 }

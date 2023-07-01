@@ -1,6 +1,6 @@
-import { WalletAsset } from "@/app/models";
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "@/components/flowbite-components"
-import Link from "next/link";
+import { WalletAsset } from '@/app/models'
+import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from '@/components/flowbite-components'
+import Link from 'next/link'
 
 async function getWalletAssets(wallet_id: string): Promise<WalletAsset[]> {
   const response = await fetch(
@@ -11,12 +11,12 @@ async function getWalletAssets(wallet_id: string): Promise<WalletAsset[]> {
         revalidate: 1,
       }
     }
-  );
-  return response.json();
+  )
+  return response.json()
 }
  
 export async function MyWallet(props: { wallet_id: string }) {
-  const walletAssets = await getWalletAssets(props.wallet_id);
+  const walletAssets = await getWalletAssets(props.wallet_id)
   return (
     <Table>
     <TableHead>
@@ -47,5 +47,5 @@ export async function MyWallet(props: { wallet_id: string }) {
       ))}
     </TableBody>
   </Table>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { MyOrders } from "@/components/MyOrders";
-import { OrderForm } from "@/components/OrderForm";
+import { MyOrders } from '@/components/MyOrders'
+import { OrderForm } from '@/components/OrderForm'
 
 export default async function HomeBrokerPage({
   params,
@@ -24,5 +24,5 @@ export default async function HomeBrokerPage({
         <div>gráfico</div>
       </div>
     </div>
-  );
+  )
 }
