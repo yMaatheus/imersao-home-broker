@@ -11,7 +11,7 @@ import {
 
 async function getOrders(wallet_id: string): Promise<Order[]> {
   const response = await fetch(
-    `http://localhost:8000/wallets/${wallet_id}/orders`,
+    `http://host.docker.internal:3000/wallets/${wallet_id}/orders`,
     {
       next: {
         tags: [`orders-wallet-${wallet_id}`],

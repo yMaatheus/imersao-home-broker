@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 async function getWalletAssets(wallet_id: string): Promise<WalletAsset[]> {
   const response = await fetch(
-    `http://localhost:8000/wallets/${wallet_id}/assets`, {
+    `http://host.docker.internal:3000/wallets/${wallet_id}/assets`, {
       // cache: 'no-store', processamento sem cache
       next: {
         // revalidate: isHomeBrokerClosed() ? 60 * 60 : 5,
