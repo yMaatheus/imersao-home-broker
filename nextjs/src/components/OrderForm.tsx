@@ -1,3 +1,4 @@
+import { Label, TextInput, Button } from '@/components/flowbite-components'
 import { revalidateTag } from 'next/cache'
 
 async function initTransaction(formData: FormData) {
@@ -9,7 +10,8 @@ async function initTransaction(formData: FormData) {
   const type = formData.get('type')
 
   const response = await fetch(
-    `http://localhost:8000/wallets/${wallet_id}/orders`, {
+    `http://localhost:8000/wallets/${wallet_id}/orders`,
+    {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -32,7 +34,11 @@ async function initTransaction(formData: FormData) {
   return await response.json()
 }
 
-export function OrderForm(props: { asset_id: string; wallet_id: string }) {
+export function OrderForm(props: {
+  asset_id: string;
+  wallet_id: string;
+  type: 'BUY' | 'SELL';
+}) {
   return (
     <div>
       <h1>Order Form</h1>
@@ -40,23 +46,39 @@ export function OrderForm(props: { asset_id: string; wallet_id: string }) {
         <input name="asset_id" type="hidden" value={props.asset_id} />
         <input name="wallet_id" type="hidden" value={props.wallet_id} />
         <input name="type" type="hidden" value="BUY" />
-        <input
-          name="shares"
-          type="number"
-          min={1}
-          step={1}
-          placeholder="quantidade"
-        />
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="shares" value="Quantidade" />
+          </div>
+          <TextInput
+            id="shares"
+            name="shares"
+            required
+            type="number"
+            min={1}
+            step={1}
+            defaultValue={1}
+          />
+        </div>
         <br />
-        <input
-          name="price"
-          type="number"
-          min={1}
-          step={0.1}
-          placeholder="preço"
-        />
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="price" value="Preço R$" />
+          </div>
+          <TextInput
+            id="price"
+            name="price"
+            required
+            type="number"
+            min={1}
+            step={0.1}
+            defaultValue={1}
+          />
+        </div>
         <br />
-        <button>Comprar</button>
+        <Button type="submit" color={props.type === 'BUY' ? 'green' : 'red'}>
+          Confirmar {props.type === 'BUY' ? 'compra' : 'venda'}
+        </Button>
       </form>
     </div>
   )
