@@ -32,7 +32,7 @@
 				"humao.rest-client",
 				"esbenp.prettier-vscode",
 				"dbaeumer.vscode-eslint",
-				"miguelsolorio.symbols"
+				"postman.postman-for-vscode"
 			]
 		}
 	}
