@@ -1,5 +1,5 @@
 'use client'
-import { WalletAsset } from '@/app/models'
+import { Asset, WalletAsset } from '@/app/models'
 import { fetcher } from '@/app/utils'
 import {
   Table,
@@ -28,43 +28,89 @@ import useSWRSubscription, { SWRSubscriptionOptions } from 'swr/subscription'
 
 export function MyWallet(props: { wallet_id: string }) {
   // const walletAssets = await getWalletAssets(props.wallet_id)
-  const { data: walletAssets, error, mutate: mutateWalletAssets } = useSWR<WalletAsset[]>(
+  const {
+    data: walletAssets,
+    error,
+    mutate: mutateWalletAssets,
+  } = useSWR<WalletAsset[]>(
     `http://localhost:3001/api/wallets/${props.wallet_id}/assets`,
     fetcher,
-    { 
-      fallbackData: [], 
+    {
+      fallbackData: [],
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     }
   )
 
-  const { data: walletAssetUpdated } = useSWRSubscription(`http://host.docker.internal:3000/wallets/${props.wallet_id}/assets/events`, (path, {next}: SWRSubscriptionOptions) => {
-    const eventSource = new EventSource(path)
+  const { data: assetChanged } = useSWRSubscription(
+    'http://localhost:3000/assets/events',
+    (path, { next }: SWRSubscriptionOptions) => {
+      const eventSource = new EventSource(path)
 
-    eventSource.addEventListener('wallet-asset-updated', async (event) => {
-      const walletAssetUpdated: WalletAsset = JSON.parse(event.data)
+      eventSource.addEventListener('asset-price-changed', async (event) => {
+        console.log(event)
+        const assetChanged: Asset = JSON.parse(event.data)
 
-      await mutateWalletAssets((prev) => {
-        const foundIndex = prev?.findIndex(walletAsset => walletAsset.asset_id === walletAssetUpdated.asset_id)
-        if (foundIndex !== -1) {
-          prev![foundIndex!].shares = walletAssetUpdated.shares
-        }
+        await mutateWalletAssets((prev) => {
+          const foundIndex = prev!.findIndex(
+            (walletAsset) => walletAsset.asset_id === assetChanged.id
+          )
 
-        return [...prev!]
-      }, false)
-      
-      next(null, walletAssetUpdated)
-    })
+          if (foundIndex !== -1) {
+            prev![foundIndex].Asset.price = assetChanged.price
+          }
 
-    eventSource.onerror = (error) => {
-      console.error(error)
-      eventSource.close()
+          console.log(prev)
+          return [...prev!]
+        }, false)
+
+        next(null, assetChanged)
+      })
+
+      eventSource.onerror = (event) => {
+        console.error(event)
+        eventSource.close()
+      }
+      return () => {
+        eventSource.close()
+      }
+    },
+    {}
+  )
+
+  const { data: walletAssetUpdated } = useSWRSubscription(
+    `http://host.docker.internal:3000/wallets/${props.wallet_id}/assets/events`,
+    (path, { next }: SWRSubscriptionOptions) => {
+      const eventSource = new EventSource(path)
+
+      eventSource.addEventListener('wallet-asset-updated', async (event) => {
+        const walletAssetUpdated: WalletAsset = JSON.parse(event.data)
+
+        await mutateWalletAssets((prev) => {
+          const foundIndex = prev?.findIndex(
+            (walletAsset) =>
+              walletAsset.asset_id === walletAssetUpdated.asset_id
+          )
+          if (foundIndex !== -1) {
+            prev![foundIndex!].shares = walletAssetUpdated.shares
+          }
+
+          return [...prev!]
+        }, false)
+
+        next(null, walletAssetUpdated)
+      })
+
+      eventSource.onerror = (error) => {
+        console.error(error)
+        eventSource.close()
+      }
+
+      return () => {
+        eventSource.close()
+      }
     }
-
-    return () => {
-      eventSource.close()
-    }
-  })
+  )
 
   return (
     <Table>
