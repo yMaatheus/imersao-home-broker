@@ -4,9 +4,9 @@ import { InitTransactionDto, InputExecuteTransactionDto } from './order.dto';
 import { Order, OrderStatus, OrderType } from '@prisma/client';
 import { ClientKafka } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { Order as OrderSchema } from './order.schema';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class OrdersService {
@@ -94,6 +94,13 @@ export class OrdersService {
             price: input.price,
           },
         });
+        await this.prismaService.assetDaily.create({
+          data: {
+            asset_id: order.asset_id,
+            date: new Date(),
+            price: input.price,
+          },
+        });
         const walletAsset = await prisma.walletAsset.findUnique({
           where: {
             wallet_id_asset_id: {
@@ -103,7 +110,6 @@ export class OrdersService {
           },
         });
         if (walletAsset) {
-          console.log(walletAsset);
           //se já tiver o ativo na carteira, atualiza a quantidade de ativos
           await prisma.walletAsset.update({
             where: {
