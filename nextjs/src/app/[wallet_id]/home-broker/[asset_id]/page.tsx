@@ -1,6 +1,7 @@
 import { ChartComponent } from '@/components/ChartComponent'
 import { MyOrders } from '@/components/MyOrders'
 import { OrderForm } from '@/components/OrderForm'
+import { SyncOrders } from '@/components/SyncOrders'
 import { TabsGroup, TabsItem, Card } from '@/components/flowbite-components'
 import { HiArrowUp, HiShoppingCart } from '@/components/react-itens/hi'
 
@@ -52,12 +53,14 @@ export default async function HomeBrokerPage({
                 },
               }}
             >
-              <MyOrders wallet_id={params.wallet_id} />
+              <SyncOrders wallet_id={params.wallet_id}>
+                <MyOrders wallet_id={params.wallet_id} />
+              </SyncOrders>
             </Card>
           </div>
         </div>
         <div className="col-span-3 flex flex-grow">
-          <ChartComponent header='Asset 1 - R$ 100' />
+          <ChartComponent header="Asset 1 - R$ 100" />
         </div>
       </div>
     </main>

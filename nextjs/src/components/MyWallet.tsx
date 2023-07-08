@@ -43,7 +43,7 @@ export function MyWallet(props: { wallet_id: string }) {
   )
 
   const { data: assetChanged } = useSWRSubscription(
-    'http://localhost:3000/assets/events',
+    'http://host.docker.internal:3000/assets/events',
     (path, { next }: SWRSubscriptionOptions) => {
       const eventSource = new EventSource(path)
 
