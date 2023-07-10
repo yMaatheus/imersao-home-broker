@@ -5,6 +5,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from './order.schema';
 
+const { KAFKA_HOST, KAFKA_USERNAME, KAFKA_PASSWORD } = process.env;
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
@@ -15,7 +17,15 @@ import { Order, OrderSchema } from './order.schema';
         options: {
           client: {
             clientId: 'orders',
-            brokers: ['host.docker.internal:9094'],
+            brokers: [KAFKA_HOST],
+            ssl: true,
+            sasl: {
+              mechanism: 'plain',
+              username: KAFKA_USERNAME,
+              password: KAFKA_PASSWORD,
+            },
+            connectionTimeout: 45000,
+            // brokers: ['host.docker.internal:9094'],
             //brokers: ['kafka:29092'], // para interna do docker
           },
         },
