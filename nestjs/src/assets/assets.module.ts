@@ -19,6 +19,6 @@ import { AssetsDailyService } from './assets-daily/assets-daily.service';
   ],
   controllers: [AssetsController, AssetsDailyController],
   providers: [AssetsService, AssetsDailyService],
-  exports: [AssetsService],
+  exports: [AssetsService, AssetsDailyService],
 })
 export class AssetsModule {}
